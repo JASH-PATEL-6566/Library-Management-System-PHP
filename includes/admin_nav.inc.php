@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<?php
+if (isset($_POST["logout"])) {
+    session_start();
+    unset($_SESSION["admin_login"]);  // where $_SESSION["nome"] is your own variable. if you do not have one use only this as follow **session_unset();**
+    header("Location: adminLogin.php");
+}
+?>
 <html lang="en">
 
 <head>
@@ -12,7 +19,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="#">Library Management System</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -63,9 +70,11 @@
                     <li class="nav-item">
                         <a class="nav-link text-uppercase" aria-current="page" href="../admin/admin_change_password.php">Change Password</a>
                     </li>
-                    <li class="nav-item">
-                        <button type="button" class="btn btn-dark text-danger text-uppercase text-none">logout</button>
-                    </li>
+                    <form method="post">
+                        <li class="nav-item">
+                            <button type="button" name="logout" class="btn btn-dark text-danger text-uppercase text-none">logout</button>
+                        </li>
+                    </form>
                 </ul>
             </div>
         </div>

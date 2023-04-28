@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <?php
 include "../includes/admin_nav.inc.php";
+
+if (isset($_POST["submit"])) {
+    $name = $_POST["name"];
+    $status = $_POST["status"];
+}
+
 ?>
 <html lang="en">
 
@@ -15,7 +21,34 @@ include "../includes/admin_nav.inc.php";
 </head>
 
 <body>
-    <h1>Add Category</h1>
+    <div class="container h-100 w-100 m-5">
+        <h2 class="p-5">Add Category</h2>
+        <form class="px-5" method="post">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label fw-bold">Category Name</label>
+                <input type="text" name="name" class="form-control w-50" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="mt-3">
+                <label for="exampleInputPassword1" class="form-label fw-bold">Status</label>
+                <div class="mb-3 form-check">
+                    <input name="status" value="active" type="checkbox" class="checkbox style-2 pull-right" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Active</label>
+                    <br>
+                    <input name="status" value="inactive" type="checkbox" class="checkbox style-2 pull-right" id="exampleCheck2">
+                    <label class="form-check-label" for="exampleCheck2">Inactive</label>
+                </div>
+            </div>
+            <button name="submit" type="submit" class="btn btn-primary">Add Category</button>
+        </form>
+    </div>
 </body>
+
+<script>
+    $(function() {
+        $('.checkbox').click(function(e) {
+            $('.checkbox').not(this).prop('checked', false);
+        });
+    });
+</script>
 
 </html>

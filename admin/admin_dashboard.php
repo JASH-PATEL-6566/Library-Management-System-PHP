@@ -1,7 +1,7 @@
-<!DOCTYPE html>
 <?php
 include "../includes/admin_nav.inc.php";
 ?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -15,7 +15,36 @@ include "../includes/admin_nav.inc.php";
 </head>
 
 <body>
-    <h1>Dashboard</h1>
+    <div class="container h-100 w-100 m-5 d-flex flex-column justify-content-center w-100">
+        <h2>Admin Dashboard</h2>
+        <div style="width: 100%;" class="d-flex pt-3 gap-3 flex-wrap px-4">
+            <div style="width: 15em;" class="card d-flex flex-column align-items-center p-3">
+                <img height="100" width="100" src="https://res.cloudinary.com/dreamlist/image/upload/v1682708369/Library-Management-System/books_k2ywoa.svg" alt="book">
+                <h4>0</h4>
+                <h5>Listed Books</h5>
+            </div>
+            <div style="width: 15em;" class="card d-flex flex-column align-items-center p-3">
+                <img height="100" width="100" src="https://res.cloudinary.com/dreamlist/image/upload/v1682708368/Library-Management-System/renew_fz91gm.svg" alt="not yet return">
+                <h4>0</h4>
+                <h5>Books not return yet</h5>
+            </div>
+            <div style="width: 15em;" class="card d-flex flex-column align-items-center p-3">
+                <img height="100" width="100" src="https://res.cloudinary.com/dreamlist/image/upload/v1682708369/Library-Management-System/users_qeixjv.svg" alt="register users">
+                <h4>0</h4>
+                <h5>Register Users</h5>
+            </div>
+            <div style="width: 15em;" class="card d-flex flex-column align-items-center p-3">
+                <img height="100" width="100" src="https://res.cloudinary.com/dreamlist/image/upload/v1682708368/Library-Management-System/author_ax8ksm.svg" alt="author listed">
+                <h4>0</h4>
+                <h5>Authors Listed</h5>
+            </div>
+            <div style="width: 15em;" class="card d-flex flex-column align-items-center p-3">
+                <img height="100" width="100" src="https://res.cloudinary.com/dreamlist/image/upload/v1682708368/Library-Management-System/category_hohav2.svg" alt="categories">
+                <h4>0</h4>
+                <h5>Listed Categories</h5>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

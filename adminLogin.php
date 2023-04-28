@@ -2,10 +2,10 @@
 <?php
 include "./includes/start_navbar.inc.php";
 include "./includes/config.inc.php";
-
+// echo $_SESSION["admin_login"];
 $store_name = "admin";
 $store_pass = "jashpatel6566";
-
+session_start();
 $message = "";
 
 if (isset($_POST["submit"])) {
@@ -13,6 +13,7 @@ if (isset($_POST["submit"])) {
     $password = $_POST["password"];
 
     if ($store_name == $name && $store_pass == $password) {
+        $_SESSION["admin_name"] = "admin";
         header("location:./admin/admin_dashboard.php");
     }
 }

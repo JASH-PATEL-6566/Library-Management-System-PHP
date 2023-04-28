@@ -4,7 +4,7 @@ include "./includes/start_navbar.inc.php";
 include "./includes/config.inc.php";
 
 $message = "";
-
+session_start();
 if (isset($_POST["submit"])) {
     $name = $_POST["name"];
     $password = $_POST["password"];
@@ -13,11 +13,15 @@ if (isset($_POST["submit"])) {
     $userList = mysqli_query($conn, $sql_check);
 
     if ($userList) {
-        $row = mysqli_fetch_assoc($userList);
-        if ($row) {
+        $row = mysqli_fetch_array($userList);
+        if (is_array($row)) {
+            $_SESSION["login_id"] = $row['id'];
+            $_SESSION["login_name"] = $row['name'];
             header("location:home.php");
         } else {
-            $message = "Invalid Username and Password";
+            session_destroy();
+            $message = "Invalid Username or Password!";
+            header("location:login.php");
         }
     }
 }
