@@ -1,36 +1,4 @@
 <!DOCTYPE html>
-<?php
-include "../includes/admin_nav.inc.php";
-include "../includes/config.inc.php";
-
-$message = "";
-
-if (isset($_POST["submit"])) {
-    $bookname = $_POST['bookname'];
-    $category = $_POST['category'];
-    $author = $_POST['author'];
-    $isbn = $_POST['isbn'];
-    $price = $_POST['price'];
-    $bookimg = $_FILES["bookpic"]["name"];
-    $extension = substr($bookimg, strlen($bookimg) - 4, strlen($bookimg));
-    $allowed_extensions = array(".jpg", ".jpeg", ".png", ".gif");
-    $imgnewname = md5($bookimg . time()) . $extension;
-    if (!in_array($extension, $allowed_extensions)) {
-        echo "<script>alert('Invalid format. Only jpg / jpeg/ png /gif format allowed');</script>";
-    } else {
-        move_uploaded_file($_FILES["bookpic"]["tmp_name"], "bookimg/" . $imgnewname);
-        $sql = "insert into  `books`(BookName,CatName,AuthName,ISBNNumber,BookPrice,BookImage) VALUES('$bookname','$category','$author','$isbn','$price','$imgnewname')";
-        $result = mysqli_query($conn, $sql);
-        if ($result) {
-            echo "<script>alert('Book Listed successfully');</script>";
-            echo "<script>window.location.href='admin_manage_books.php'</script>";
-        } else {
-            echo "<script>alert('Something went wrong. Please try again');</script>";
-            // echo "<script>window.location.href='admin_add_book.php'</script>";
-        }
-    }
-}
-?>
 <html lang="en">
 
 <head>
@@ -40,12 +8,12 @@ if (isset($_POST["submit"])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.rtl.min.css" integrity="sha384-T5m5WERuXcjgzF8DAb7tRkByEZQGcpraRTinjpywg37AO96WoYN9+hrhDVoM6CaT" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>Add Book</title>
+    <title>Edit Book</title>
 </head>
 
 <body>
     <div class="container h-100 w-100 m-4">
-        <h4 class="p-5 text-uppercase">Add Book</h4>
+        <h4 class="p-5 text-uppercase">Edit Book</h4>
         <form class="px-5" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col">
@@ -105,7 +73,7 @@ if (isset($_POST["submit"])) {
                     </div>
                 </div>
             </div>
-            <button type="submit" name="submit" class="btn btn-primary">Add Book</button>
+            <button type="submit" name="submit" class="btn btn-primary">Edit Book</button>
         </form>
     </div>
 </body>
