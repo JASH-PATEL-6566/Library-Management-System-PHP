@@ -1,12 +1,40 @@
 <!DOCTYPE html>
 <?php
 include "../includes/admin_nav.inc.php";
+include "../includes/config.inc.php";
 
-if (isset($_POST["submit"])) {
+$message = "";
+$redirect = "";
+
+if (isset($_POST["submit"]) && (isset($_POST["name"]) && isset($_POST["status"]))) {
     $name = $_POST["name"];
-    $status = $_POST["status"];
-}
+    $status =  $_POST["status"];
+    date_default_timezone_set('Asia/Kolkata');
+    $current_date_time = date('d/m/Y h:i A');
 
+    $sql_check = "select * from `categories` where name='$name'";
+    $categoryList = mysqli_query($conn, $sql_check);
+
+    if ($categoryList) {
+        $row = mysqli_fetch_array($categoryList);
+        if (is_array($row)) {
+            $message = "This category is already present.";
+            echo "<script>window.location.href = 'admin_add_category.php';</script>";
+            exit;
+        } else {
+            $sql = "insert into `categories` (name,status,creation_date,updation_date) values('$name','$status','$current_date_time','$current_date_time')";
+            $result = mysqli_query($conn, $sql);
+            if ($result) {
+                echo "<script>window.location.href = 'admin_manage_categories.php';</script>";
+                exit;
+            } else {
+                $message = "Something went wrong please try again.";
+                echo "<script>window.location.href = 'admin_add_category.php';</script>";
+                exit;
+            }
+        }
+    }
+}
 ?>
 <html lang="en">
 
@@ -22,11 +50,11 @@ if (isset($_POST["submit"])) {
 
 <body>
     <div class="container h-100 w-100 m-5">
-        <h2 class="p-5">Add Category</h2>
+        <h4 class="p-5 text-uppercase">Add Category</h4>
         <form class="px-5" method="post">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label fw-bold">Category Name</label>
-                <input type="text" name="name" class="form-control w-50" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input require type="text" name="name" class="form-control w-50" id="exampleInputEmail1" aria-describedby="emailHelp">
             </div>
             <div class="mt-3">
                 <label for="exampleInputPassword1" class="form-label fw-bold">Status</label>
@@ -40,6 +68,9 @@ if (isset($_POST["submit"])) {
             </div>
             <button name="submit" type="submit" class="btn btn-primary">Add Category</button>
         </form>
+        <?php
+        echo "<p class=\"error text-danger p-3 m-3\">$message</p>";
+        ?>
     </div>
 </body>
 
@@ -49,6 +80,8 @@ if (isset($_POST["submit"])) {
             $('.checkbox').not(this).prop('checked', false);
         });
     });
+
+    window.location.replace = <?php echo "\"$redirect\""; ?>;
 </script>
 
 </html>
