@@ -9,13 +9,13 @@ if (isset($_POST["submit"])) {
     $name = $_POST["name"];
     $password = $_POST["password"];
 
-    $sql_check = "select * from `userTable` where name='$name' and password='$password'";
+    $sql_check = "select * from `students` where name='$name' and password='$password'";
     $userList = mysqli_query($conn, $sql_check);
 
     if ($userList) {
         $row = mysqli_fetch_array($userList);
         if (is_array($row)) {
-            $_SESSION["login_id"] = $row['id'];
+            $_SESSION["login_id"] = $row['studentId'];
             $_SESSION["login_name"] = $row['name'];
             header("location:home.php");
         } else {

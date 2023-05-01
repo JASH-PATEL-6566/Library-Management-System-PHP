@@ -11,8 +11,11 @@ if (isset($_POST["submit"])) {
     $email = $_POST["email"];
     $password = $_POST["password"];
     $confirm_password = $_POST["confirmPassword"];
+    date_default_timezone_set('Asia/Kolkata');
+    $current_date_time = date('d/m/Y h:i A');
+    $status = "active";
 
-    $sql_check = "select * from `userTable` where name='$name' and email='$email'";
+    $sql_check = "select * from `students` where name='$name' and email='$email'";
     $userList = mysqli_query($conn, $sql_check);
 
     if ($userList) {
@@ -23,12 +26,26 @@ if (isset($_POST["submit"])) {
             if ($confirm_password != $password) {
                 $message = "Password and Confirm password not match....";
             } else {
-                $sql = "insert into `userTable` (name,mobile,email,password) values('$name','$phone','$email','$password')";
+                $sql = "insert into `students` (name,mobile,email,password,reg_date,status) values('$name','$phone','$email','$password','$current_date_time','$status')";
                 $result = mysqli_query($conn, $sql);
-
                 mysqli_error($conn);
                 if ($result) {
-                    header("location:index.php");
+                    $id_result = mysqli_query($conn, $sql_check);
+                    if ($id_result) {
+                        while ($row = mysqli_fetch_assoc($id_result)) {
+                            $id = $row["id"];
+                            $studentId = "SID" . $id;
+                            $sql_id = "UPDATE `students` SET studentId = '$studentId' WHERE id='$id';";
+                            $addId = mysqli_query($conn, $sql_id);
+                            if ($addId) {
+                                header("location:index.php");
+                            } else {
+                                $message = "Something went wrong please try again....";
+                            }
+                        }
+                    } else {
+                        $message = "Something went wrong please try again....";
+                    }
                 } else {
                     $message = "Something went wrong please try again....";
                 }

@@ -64,7 +64,7 @@ if (isset($_POST["logout"])) {
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-uppercase" aria-current="page" href="../admin/admin_register_student.php">REG stident</a>
+                        <a class="nav-link text-uppercase" aria-current="page" href="../admin/admin_register_student.php">REG student</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-uppercase" aria-current="page" href="../admin/admin_change_password.php">Change Password</a>

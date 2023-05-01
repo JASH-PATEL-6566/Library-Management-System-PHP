@@ -14,7 +14,14 @@ include "../includes/config.inc.php";
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
-
+    <style>
+        table,
+        td,
+        th {
+            border: 1px solid lightgray;
+            border-collapse: collapse;
+        }
+    </style>
     <title>Manage categories</title>
 
     <style>
