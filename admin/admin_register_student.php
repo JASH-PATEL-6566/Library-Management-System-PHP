@@ -35,7 +35,7 @@ include "../includes/config.inc.php";
 
 <body>
     <div class="container my-3 gap-2" style="display: flex; flex-direction: column; align-items: center;">
-        <h5 class="text-uppercase" style="align-self: flex-start;">Manage Authors</h5>
+        <h5 class="text-uppercase" style="align-self: flex-start;">Register Students</h5>
         <table id="example" class="display" cellspacing="0" style="height:10em;font-size: .9em;width:55em;">
             <thead>
                 <tr>
@@ -79,7 +79,7 @@ include "../includes/config.inc.php";
                         <td>
                         <form method="post">
                         <a href="' . $text . '_student.php?sid=' . $id . '"><button type="button" class="btn btn-danger text-capitalize">' . $text . '</button></a>
-                        <a href="admin_student_detail.php?sid=' . $id . '"><button type="button" class="btn btn-success">Detail</button></a>
+                        <a href="./admin_student_details.php?sid=' . $sid . '"><button type="button" class="btn btn-success">Detail</button></a>
                         </form>
                         </td>
                     </tr>';

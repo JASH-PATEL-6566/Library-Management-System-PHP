@@ -38,7 +38,9 @@ if (isset($_POST["submit"])) {
                             $sql_id = "UPDATE `students` SET studentId = '$studentId' WHERE id='$id';";
                             $addId = mysqli_query($conn, $sql_id);
                             if ($addId) {
-                                header("location:index.php");
+                                echo "<script>alert('Your studentId is " . $studentId . "')</script>";
+                                echo "<script>window.location.href = \"index.php\"</script>";
+                                // header("location:index.php");
                             } else {
                                 $message = "Something went wrong please try again....";
                             }

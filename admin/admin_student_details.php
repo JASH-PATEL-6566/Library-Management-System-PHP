@@ -2,6 +2,8 @@
 <?php
 include "../includes/admin_nav.inc.php";
 include "../includes/config.inc.php";
+
+$sid = $_GET["sid"];
 ?>
 <html lang="en">
 
@@ -22,69 +24,60 @@ include "../includes/config.inc.php";
             border-collapse: collapse;
         }
     </style>
-    <title>Manage Issued Books</title>
+    <title>Student Details</title>
 </head>
 
 <body>
     <div class="container my-3 gap-2" style="display: flex; flex-direction: column; align-items: center;">
-        <h5 class="text-uppercase" style="align-self: flex-start;">Manage Books</h5>
-        <table id="example" class="display" cellspacing="0" style="height:10em;font-size: .9em;width:65em;">
+        <h5 class="text-uppercase" style="align-self: flex-start;">#<?php echo $sid ?> Student details</h5>
+        <table id="example" class="display" cellspacing="0" style="height:10em;font-size: .9em;width:60em;">
             <thead>
                 <tr>
                     <th></th>
-                    <th>#</th>
+                    <th>Student ID</th>
                     <th>Student Name</th>
-                    <th>Book Name</th>
-                    <th>ISBN</th>
+                    <th>Issued Book</th>
                     <th>Issued Date</th>
                     <th>Return Date</th>
-                    <th>Action</th>
+                    <th>Fine (if any)</th>
                 </tr>
             </thead>
             <?php
-            $sql = "select * from `issuedbook`";
+            $sql = "select * from `students` where studentId='$sid'";
             $result = mysqli_query($conn, $sql);
             if ($result) {
                 while ($row = mysqli_fetch_assoc($result)) {
-                    $id = $row["id"];
-                    $studentId = $row["studentId"];
-                    $isbn = $row["isbn"];
-                    $issuedDate = $row["issuedDate"];
-                    $returnDate = $row["returnDate"];
-                    $book_name = "";
-                    $student_name = "";
+                    $name = $row["name"];
+                }
 
-                    $sql_student = "select name from `students` where studentId='$studentId'";
-                    $result_student = mysqli_query($conn, $sql_student);
+                $sql_issue = "select * from `issuedbook` where studentId='$sid'";
+                $result_issue = mysqli_query($conn, $sql_issue);
+                if ($result_issue) {
+                    while ($row = mysqli_fetch_assoc($result_issue)) {
+                        $issuedDate = $row["issuedDate"];
+                        $reutrnDate = $row["returnDate"];
+                        $fine = $row["fine"];
+                        $isbn = $row["isbn"];
 
-                    $sql_book = "select BookName from `books` where ISBNNumber='$isbn'";
-                    $result_book = mysqli_query($conn, $sql_book);
-
-                    while ($row = mysqli_fetch_assoc($result_book)) {
-                        $book_name = $row["BookName"];
+                        $sql_book = "select * from `books` where ISBNNumber='$isbn'";
+                        $result_book = mysqli_query($conn, $sql_book);
+                        if ($result_book) {
+                            while ($row = mysqli_fetch_assoc($result_book)) {
+                                $BookName = $row["BookName"];
+                                echo '<tr>
+                                    <td></td>
+                                    <td class="fw-bold">' . $sid . '</td>
+                                    <td>' . $name . '</td>
+                                    <td>' . $BookName . '</td>
+                                    <td>' . $issuedDate . '</td>
+                                    <td>' . $reutrnDate . '</td>
+                                    <td>' . $fine . '</td>
+                                </tr>';
+                            }
+                        }
                     }
-
-                    while ($row = mysqli_fetch_assoc($result_student)) {
-                        $student_name = $row["name"];
-                    }
-
-                    if ($result_student && $result_book) {
-
-                        echo '<tr>
-                        <td></td>
-                        <td class="fw-bold">' . $id . '</td>
-                        <td>' . $student_name . '</td>
-                        <td>' . $book_name . '</td>
-                        <td>' . $isbn . '</td>
-                        <td>' . $issuedDate . '</td>
-                        <td>' . $returnDate . '</td>
-                        <td>
-                        <form method="post">
-                        <a href="update_issue_book.php?issueid=' . $id . '"><button type="button" class="btn btn-primary">Edit</button></a>
-                        </form>
-                        </td>
-                    </tr>';
-                    }
+                } else {
+                    echo "issue";
                 }
             }
             ?>

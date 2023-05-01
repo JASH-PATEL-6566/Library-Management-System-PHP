@@ -1,5 +1,41 @@
 <?php
 include "../includes/admin_nav.inc.php";
+include "../includes/config.inc.php";
+
+// number of listed book
+$sql_book = "select * from `books`";
+$result_book = mysqli_query($conn, $sql_book);
+if ($result_book) {
+    $num_book = mysqli_num_rows($result_book);
+}
+
+// number of not return book
+$sql_book_not = "select * from `issuedbook` where returnDate='Not Return Yet'";
+$result_book_not = mysqli_query($conn, $sql_book_not);
+if ($result_book_not) {
+    $num_book_not = mysqli_num_rows($result_book_not);
+}
+
+// register user
+$sql_student = "select * from `students`";
+$result_student = mysqli_query($conn, $sql_student);
+if ($result_student) {
+    $num_student = mysqli_num_rows($result_student);
+}
+
+// register author
+$sql_author = "select * from `authors`";
+$result_author = mysqli_query($conn, $sql_author);
+if ($result_author) {
+    $num_author = mysqli_num_rows($result_author);
+}
+
+// register category
+$sql_category = "select * from `categories`";
+$result_category = mysqli_query($conn, $sql_category);
+if ($result_category) {
+    $num_category = mysqli_num_rows($result_category);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,27 +56,27 @@ include "../includes/admin_nav.inc.php";
         <div style="width: 100%;" class="d-flex pt-3 gap-3 flex-wrap px-4">
             <div style="width: 15em;" class="card d-flex flex-column align-items-center p-3">
                 <img height="100" width="100" src="https://res.cloudinary.com/dreamlist/image/upload/v1682708369/Library-Management-System/books_k2ywoa.svg" alt="book">
-                <h4>0</h4>
+                <h4><?php echo $num_book ?></h4>
                 <h5>Listed Books</h5>
             </div>
             <div style="width: 15em;" class="card d-flex flex-column align-items-center p-3">
                 <img height="100" width="100" src="https://res.cloudinary.com/dreamlist/image/upload/v1682708368/Library-Management-System/renew_fz91gm.svg" alt="not yet return">
-                <h4>0</h4>
+                <h4><?php echo $num_book_not ?></h4>
                 <h5>Books not return yet</h5>
             </div>
             <div style="width: 15em;" class="card d-flex flex-column align-items-center p-3">
                 <img height="100" width="100" src="https://res.cloudinary.com/dreamlist/image/upload/v1682708369/Library-Management-System/users_qeixjv.svg" alt="register users">
-                <h4>0</h4>
-                <h5>Register Users</h5>
+                <h4><?php echo $num_student ?></h4>
+                <h5>Register Students</h5>
             </div>
             <div style="width: 15em;" class="card d-flex flex-column align-items-center p-3">
                 <img height="100" width="100" src="https://res.cloudinary.com/dreamlist/image/upload/v1682708368/Library-Management-System/author_ax8ksm.svg" alt="author listed">
-                <h4>0</h4>
+                <h4><?php echo $num_author ?></h4>
                 <h5>Authors Listed</h5>
             </div>
             <div style="width: 15em;" class="card d-flex flex-column align-items-center p-3">
                 <img height="100" width="100" src="https://res.cloudinary.com/dreamlist/image/upload/v1682708368/Library-Management-System/category_hohav2.svg" alt="categories">
-                <h4>0</h4>
+                <h4><?php echo $num_category ?></h4>
                 <h5>Listed Categories</h5>
             </div>
         </div>

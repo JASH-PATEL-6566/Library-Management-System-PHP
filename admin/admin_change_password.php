@@ -1,6 +1,43 @@
 <!DOCTYPE html>
 <?php
 include "../includes/admin_nav.inc.php";
+include "../includes/config.inc.php";
+
+if (isset($_COOKIE['admin'])) {
+    $username = $_COOKIE['admin'];
+}
+
+if (isset($_POST["submit"])) {
+    $new = $_POST["new"];
+    $current = $_POST["current"];
+    $confirm_new = $_POST["confirm_new"];
+
+    if (!($new == $confirm_new)) {
+        $message = "New password and Confirm Password are not same.";
+        echo "<script>alert(\"$message\")</script>";
+        echo "<script>window.location.href = './admin_change_password.php';</script>";
+        exit;
+    }
+
+    $sql = "select * from `admin` where username='$username' and password='$current'";
+    $result = mysqli_query($conn, $sql);
+    if ($result && mysqli_num_rows($result) > 0) {
+        $sql_update = "update `admin` set password='$new' where username='$username'";
+        $result_update = mysqli_query($conn, $sql_update);
+        if ($result_update) {
+            $message = "Password has been change successfuly.";
+            echo "<script>alert(\"$message\")</script>";
+            echo "<script>window.location.href = './admin_dashboard.php';</script>";
+            exit;
+        } else {
+            $message = "Something went wrong please try again.";
+            echo "<script>alert(\"$message\")</script>";
+            echo "<script>window.location.href = './admin_change_password.php';</script>";
+            exit;
+        }
+    }
+}
+
 ?>
 <html lang="en">
 
@@ -15,7 +52,24 @@ include "../includes/admin_nav.inc.php";
 </head>
 
 <body>
-    <h1>Change Password</h1>
+    <div class="container h-100 w-100 m-5">
+        <h4 class="p-5 text-uppercase">Change Admin Password</h4>
+        <form class="px-5" method="post">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label fw-bold">Current Password</label>
+                <input require type="password" name="current" class="form-control w-50" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail2" class="form-label fw-bold">Enter New Password</label>
+                <input require type="password" name="new" class="form-control w-50" id="exampleInputEmail2" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail3" class="form-label fw-bold">Confirm Password</label>
+                <input require type="password" name="confirm_new" class="form-control w-50" id="exampleInputEmail3" aria-describedby="emailHelp">
+            </div>
+            <button name="submit" type="submit" class="btn btn-primary">Change</button>
+        </form>
+    </div>
 </body>
 
 </html>

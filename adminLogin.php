@@ -2,19 +2,29 @@
 <?php
 include "./includes/start_navbar.inc.php";
 include "./includes/config.inc.php";
-// echo $_SESSION["admin_login"];
-$store_name = "admin";
-$store_pass = "jashpatel6566";
-session_start();
 $message = "";
 
 if (isset($_POST["submit"])) {
     $name = $_POST["name"];
     $password = $_POST["password"];
 
-    if ($store_name == $name && $store_pass == $password) {
-        $_SESSION["admin_name"] = "admin";
-        header("location:./admin/admin_dashboard.php");
+    $sql = "select * from `admin` where username='$name' and password='$password'";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        if (mysqli_num_rows($result) > 0) {
+            setcookie("admin", $name, 0);
+            echo "<script>window.location.href = './admin/admin_dashboard.php';</script>";
+        } else {
+            $message = "Invalid username and password.";
+            echo "<script>alert(\"$message\")</script>";
+            echo "<script>window.location.href = './adminLogin.php';</script>";
+            exit;
+        }
+    } else {
+        $message = "Something went wrong please try again.";
+        echo "<script>alert(\"$message\")</script>";
+        echo "<script>window.location.href = './adminLogin.php';</script>";
+        exit;
     }
 }
 ?>
