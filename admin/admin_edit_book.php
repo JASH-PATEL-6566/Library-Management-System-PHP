@@ -35,7 +35,7 @@ if (isset($_POST["submit"])) {
     $new_book = $_POST["bookname"];
     $new_category = $_POST["category"];
     $new_author = $_POST["author"];
-    $new_new_price = $_POST["price"];
+    $new_price = $_POST["price"];
     $sql = "update `books` set BookName='$new_book',CatName='$new_category',AuthName='$new_author',BookPrice='$new_price' where BookName='$get_name'";
     $result = mysqli_query($conn, $sql);
     if ($result) {

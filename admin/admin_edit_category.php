@@ -90,9 +90,6 @@ if (isset($_GET["catname"])) {
             </div>
             <button name="submit" type="submit" class="btn btn-primary">Edit Category</button>
         </form>
-        <?php
-        echo "<p class=\"error text-danger p-3 m-3\">$message</p>";
-        ?>
     </div>
 </body>
 
