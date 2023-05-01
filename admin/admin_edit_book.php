@@ -10,6 +10,45 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Edit Book</title>
 </head>
+<?php
+include "../includes/admin_nav.inc.php";
+include "../includes/config.inc.php";
+
+if (isset($_GET["bookname"])) {
+    $get_name = $_GET["bookname"];
+
+    $sql_fetch = "select * from `books` where BookName='$get_name'";
+    $result_fetch = mysqli_query($conn, $sql_fetch);
+    if ($result_fetch) {
+        while ($row = mysqli_fetch_assoc($result_fetch)) {
+            $name_book = $row["BookName"];
+            $category = $row["CatName"];
+            $author = $row["AuthName"];
+            $isbn = $row["ISBNNumber"];
+            $price = $row["BookPrice"];
+            $img = $row["BookImage"];
+        }
+    }
+}
+
+if (isset($_POST["submit"])) {
+    $new_book = $_POST["bookname"];
+    $new_category = $_POST["category"];
+    $new_author = $_POST["author"];
+    $new_new_price = $_POST["price"];
+    $sql = "update `books` set BookName='$new_book',CatName='$new_category',AuthName='$new_author',BookPrice='$new_price' where BookName='$get_name'";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        echo "<script>window.location.href = 'admin_manage_books.php';</script>";
+        exit;
+    } else {
+        $message = "Something went wrong please try again.";
+        echo "<script>alert('Something went wrong, Please try again.')</script>";
+        echo "<script>window.location.href = 'admin_edit_book.php?bookname=$get_name';</script>";
+        exit;
+    }
+}
+?>
 
 <body>
     <div class="container h-100 w-100 m-4">
@@ -18,12 +57,11 @@
             <div class="row">
                 <div class="col">
                     <label for="bookName" class="form-label">Book Name</label>
-                    <input required name="bookname" id="bookName" type="text" class="form-control" placeholder="Book Name" aria-label="Book Name">
+                    <input required name="bookname" value="<?php echo $name_book ?>" id="bookName" type="text" class="form-control" placeholder="Book Name" aria-label="Book Name">
                 </div>
                 <div class="col">
                     <label class="form-label" for="autoSizingSelect">Category</label>
-                    <select required name="category" class="form-select" id="autoSizingSelect">
-                        <option selected>Choose Category</option>
+                    <select required name="category" value="<?php echo $category ?>" class="form-select" id="autoSizingSelect">
                         <?php
                         $sql = "select * from `categories`";
                         $result = mysqli_query($conn, $sql);
@@ -31,7 +69,11 @@
                             while ($row = mysqli_fetch_assoc($result)) {
                                 $name = $row["name"];
                                 $id = $row["id"];
-                                echo '<option value="' . $name . '">' . $name . '</option>';
+                                if ($name == $category) {
+                                    echo '<option value="' . $name . '" selected>' . $name . '</option>';
+                                } else {
+                                    echo '<option value="' . $name . '">' . $name . '</option>';
+                                }
                             }
                         }
                         ?>
@@ -40,9 +82,9 @@
             </div>
             <div class="row mt-3">
                 <div class="col">
-                    <label class="form-label" for="autoSizingSelect">Author</label>
-                    <select required name="author" class="form-select" id="autoSizingSelect">
-                        <option selected>Choose Author</option>
+                    <label class="form-label" for="author">Author</label>
+                    <select required name="author" class="form-select" id="author">
+                        <option>Choose Author</option>
                         <?php
                         $sql = "select * from `authors`";
                         $result = mysqli_query($conn, $sql);
@@ -50,27 +92,28 @@
                             while ($row = mysqli_fetch_assoc($result)) {
                                 $name = $row["name"];
                                 $id = $row["id"];
-                                echo '<option value="' . $name . '">' . $name . '</option>';
+                                if ($name == $author) {
+                                    echo '<option value="' . $name . '" selected>' . $name . '</option>';
+                                } else {
+                                    echo '<option value="' . $name . '">' . $name . '</option>';
+                                }
                             }
                         }
                         ?>
                     </select>
                 </div>
                 <div class="col">
-                    <label for="bookName" class="form-label">ISBN Number</label>
-                    <input required name="isbn" id="bookName" type="text" class="form-control" placeholder="ISBN Number" aria-label="ISBN Number">
+                    <label for="isbn" class="form-label">ISBN Number</label>
+                    <input required name="isbn" value="<?php echo $isbn ?>" disabled="TRUE" id="isbn" type="text" class="form-control" placeholder="ISBN Number" aria-label="ISBN Number">
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col">
-                    <label for="bookName" class="form-label">Price</label>
-                    <input required name="price" id="bookName" type="text" class="form-control" placeholder="Price" aria-label="Price">
+                    <label for="price" class="form-label">Price</label>
+                    <input required name="price" value="<?php echo $price ?>" id="price" type="text" class="form-control" placeholder="Price" aria-label="Price">
                 </div>
                 <div class="col">
-                    <label for="inputGroupFile01" class="form-label">Book Picture</label>
-                    <div class="input-group mb-3">
-                        <input type="file" name="bookpic" class="form-control" id="inputGroupFile01">
-                    </div>
+                    <img src="bookimg/<?php echo $img; ?>" width="100">
                 </div>
             </div>
             <button type="submit" name="submit" class="btn btn-primary">Edit Book</button>
