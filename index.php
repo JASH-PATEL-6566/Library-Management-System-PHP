@@ -4,7 +4,6 @@ include "./includes/start_navbar.inc.php";
 include "./includes/config.inc.php";
 
 $message = "";
-session_start();
 if (isset($_POST["submit"])) {
     $name = $_POST["name"];
     $password = $_POST["password"];
@@ -15,11 +14,10 @@ if (isset($_POST["submit"])) {
     if ($userList) {
         $row = mysqli_fetch_array($userList);
         if (is_array($row)) {
-            $_SESSION["login_id"] = $row['studentId'];
-            $_SESSION["login_name"] = $row['name'];
-            header("location:home.php");
+            $sid = $row["studentId"];
+            setcookie("lms_student", $sid, 0);
+            header("location:student_dashboard.php");
         } else {
-            session_destroy();
             $message = "Invalid Username or Password!";
             header("location:login.php");
         }
