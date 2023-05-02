@@ -15,7 +15,7 @@ if (isset($_POST["submit"])) {
         $row = mysqli_fetch_array($userList);
         if (is_array($row)) {
             $sid = $row["studentId"];
-            setcookie("lms_student", $sid, 0);
+            setcookie("lms_student", $sid, time() + 3600, "/");
             header("location:student_dashboard.php");
         } else {
             $message = "Invalid Username or Password!";

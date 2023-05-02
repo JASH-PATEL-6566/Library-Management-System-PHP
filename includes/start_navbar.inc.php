@@ -20,10 +20,10 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-uppercase" aria-current="page" href="index.php">User Login</a>
+                        <a class="nav-link text-uppercase" aria-current="page" href="index.php">Student Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-uppercase" href="signupUser.php">User Signup</a>
+                        <a class="nav-link text-uppercase" href="signupUser.php">Student Signup</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-uppercase" href="adminLogin.php">Admin Login</a>

@@ -12,7 +12,7 @@ if (isset($_POST["submit"])) {
     $result = mysqli_query($conn, $sql);
     if ($result) {
         if (mysqli_num_rows($result) > 0) {
-            setcookie("admin", $name, 0);
+            setcookie("admin", $name, time() + 3600, "/");
             echo "<script>window.location.href = './admin/admin_dashboard.php';</script>";
         } else {
             $message = "Invalid username and password.";

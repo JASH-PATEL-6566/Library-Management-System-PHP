@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <?php
 if (isset($_POST["logout"])) {
-    session_start();
-    unset($_SESSION["admin_login"]);  // where $_SESSION["nome"] is your own variable. if you do not have one use only this as follow **session_unset();**
-    header("Location: adminLogin.php");
+    setcookie("lms_student", "", time() - 3600, "/");
+    header("location:index.php");
 }
 ?>
 <html lang="en">
@@ -41,7 +40,7 @@ if (isset($_POST["logout"])) {
                     </li>
                     <form method="post">
                         <li class="nav-item">
-                            <button type="button" name="logout" class="btn btn-dark text-danger text-uppercase text-none">logout</button>
+                            <button type="submit" name="logout" class="btn btn-dark text-danger text-uppercase text-none">logout</button>
                         </li>
                     </form>
                 </ul>
