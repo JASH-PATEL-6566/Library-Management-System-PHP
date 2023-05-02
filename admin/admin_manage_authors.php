@@ -2,6 +2,13 @@
 <?php
 include "../includes/admin_nav.inc.php";
 include "../includes/config.inc.php";
+if (isset($_COOKIE['admin'])) {
+    $admin = $_COOKIE['admin'];
+} else {
+    $message = "You need to login first";
+    echo "<script>alert(\"$message\")</script>";
+    echo "<script>window.location.href = '../adminLogin.php';</script>";
+}
 ?>
 <html lang="en">
 

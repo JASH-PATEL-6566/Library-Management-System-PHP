@@ -3,8 +3,13 @@
 include "./includes/student_nav.inc.php";
 include "./includes/config.inc.php";
 
+
 if (isset($_COOKIE['lms_student'])) {
     $studentId = $_COOKIE['lms_student'];
+} else {
+    $message = "You need to login first";
+    echo "<script>alert(\"$message\")</script>";
+    echo "<script>window.location.href = '../index.php';</script>";
 }
 
 $sql_student = "select * from `students` where studentId='$studentId'";

@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<?php
+if (isset($_COOKIE['admin'])) {
+    $admin = $_COOKIE['admin'];
+} else {
+    $message = "You need to login first";
+    echo "<script>alert(\"$message\")</script>";
+    echo "<script>window.location.href = '../adminLogin.php';</script>";
+}
+?>
 <html lang="en">
 
 <head>

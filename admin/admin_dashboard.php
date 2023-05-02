@@ -2,6 +2,14 @@
 include "../includes/admin_nav.inc.php";
 include "../includes/config.inc.php";
 
+if (isset($_COOKIE['admin'])) {
+    $admin = $_COOKIE['admin'];
+} else {
+    $message = "You need to login first";
+    echo "<script>alert(\"$message\")</script>";
+    echo "<script>window.location.href = '../adminLogin.php';</script>";
+}
+
 // number of listed book
 $sql_book = "select * from `books`";
 $result_book = mysqli_query($conn, $sql_book);
