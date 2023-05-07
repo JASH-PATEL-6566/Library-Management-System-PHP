@@ -2,7 +2,10 @@
 <?php
 if (isset($_POST["logout"])) {
     setcookie("admin", "", time() - 3600, "/");
-    header("location:../adminLogin.php");
+    header("Cache-Control: no-cache, no-store, must-revalidate");
+    header("Pragma: no-cache");
+    header("Expires: 0");
+    echo "<script>window.location.href = '../adminLogin.php'</script>";
 }
 ?>
 <html lang="en">

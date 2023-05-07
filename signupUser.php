@@ -28,7 +28,7 @@ if (isset($_POST["submit"])) {
             } else {
                 $sql = "insert into `students` (name,mobile,email,password,reg_date,status) values('$name','$phone','$email','$password','$current_date_time','$status')";
                 $result = mysqli_query($conn, $sql);
-                mysqli_error($conn);
+                // mysqli_error($conn);
                 if ($result) {
                     $id_result = mysqli_query($conn, $sql_check);
                     if ($id_result) {

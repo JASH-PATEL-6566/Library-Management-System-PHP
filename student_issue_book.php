@@ -41,6 +41,7 @@ if (isset($_COOKIE['lms_student'])) {
             <thead>
                 <tr>
                     <th></th>
+                    <th>Student Name</th>
                     <th>Book Name</th>
                     <th>ISBN</th>
                     <th>Issued Date</th>
@@ -72,6 +73,7 @@ if (isset($_COOKIE['lms_student'])) {
                                 $BookName = $row["BookName"];
                                 echo '<tr>
                                     <td></td>
+                                    <td>' . $name . '</td>
                                     <td>' . $BookName . '</td>
                                     <td>' . $isbn . '</td>
                                     <td>' . $issuedDate . '</td>
