@@ -45,7 +45,7 @@ if (isset($_COOKIE['admin'])) {
 <body>
     <div class="container my-3 gap-2" style="display: flex; flex-direction: column; align-items: center;">
         <h5 class="text-uppercase" style="align-self: flex-start;">Register Students</h5>
-        <table id="example" class="display" cellspacing="0" style="height:10em;font-size: .9em;width:55em;">
+        <table id="example" class="display" cellspacing="0" style="height:10em;font-size: .9em;width:65em;">
             <thead>
                 <tr>
                     <!-- <th ></th> -->

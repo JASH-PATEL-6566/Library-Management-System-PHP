@@ -2,9 +2,9 @@
 include "../includes/admin_nav.inc.php";
 include "../includes/config.inc.php";
 
-$get_name = $_GET["catname"];
+$get_name = $_GET["catId"];
 
-$sql = "delete from `categories` where name = '$get_name'";
+$sql = "delete from `categories` where id = '$get_name'";
 $result = mysqli_query($conn, $sql);
 if ($result) {
     echo "<script>window.location.href = './admin_manage_categories.php';</script>";

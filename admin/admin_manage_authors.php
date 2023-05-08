@@ -64,7 +64,7 @@ if (isset($_COOKIE['admin'])) {
                         <td>
                         <form method="post">
                         <a href="admin_edit_author.php?authname=' . $name . '"><button type="button" class="btn btn-primary">Edit</button></a>
-                        <a href="admin_delete_author.php?authname=' . $name . '"><button type="button" class="btn btn-danger">Delete</button></a>
+                        <a href="admin_delete_author.php?authId=' . $id . '"><button type="button" class="btn btn-danger">Delete</button></a>
                         </form>
                         </td>
                     </tr>';

@@ -46,7 +46,7 @@ if (isset($_POST["submit"])) {
         <h2 class="p-5">Admin Login Form</h2>
         <form class="px-5" method="post">
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email Username</label>
+                <label for="exampleInputEmail1" class="form-label">Username</label>
                 <input type="text" name="name" class="form-control w-50" id="exampleInputEmail1" aria-describedby="emailHelp">
             </div>
             <div class="mb-3">
